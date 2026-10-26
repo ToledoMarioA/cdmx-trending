@@ -130,7 +130,7 @@ def main():
     ahora = datetime.now(MX)
 ##     tendencias = obtener_tendencias()
     os.makedirs(OUT_DIR, exist_ok=True)
-    with open(OUT_FILE, "w", encoding="utf-8") as f:
+##    with open(OUT_FILE, "w", encoding="utf-8") as f:
 ##         f.write(generar_pagina(tendencias, ahora))
 ##    print("Tendencias:", ", ".join(tendencias))
 
