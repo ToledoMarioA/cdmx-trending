@@ -19,13 +19,12 @@ HEADERS = {
 FEEDS = [
     ("Reforma", "https://www.reforma.com/rss/portada.xml"),
     ("La Jornada", "https://www.jornada.com.mx/rss/edicion.xml"),
+    ("Excélsior", "https://www.excelsior.com.mx/rss"),
 ]
 
 # Respaldo para los medios sin feed verificado o si el feed falla.
 RESPALDO = [
     ("El Universal", "Alerta financiera en la Modalidad 40 de pensiones",
-     "https://www.unotv.com/nacional/las-de-hoy-23-de-octubre-de-2026/"),
-    ("Excélsior", "A debate, los cambios a la Modalidad 40",
      "https://www.unotv.com/nacional/las-de-hoy-23-de-octubre-de-2026/"),
     ("El Economista", "Existen 798 mil pensiones asociadas al plan de jubilación Modalidad 40",
      "https://www.unotv.com/nacional/las-de-hoy-23-de-octubre-de-2026/"),
@@ -36,8 +35,10 @@ RESPALDO_FECHA = "23 de octubre de 2026"
 
 
 def limpiar(texto):
+    texto = html.unescape(texto)
     texto = re.sub(r"<!\[CDATA\[|\]\]>", "", texto)
-    return html.unescape(re.sub(r"<[^>]+>", "", texto)).strip()
+    texto = re.sub(r"<[^>]+>", "", texto)
+    return " ".join(texto.split()).strip()
 
 
 def ultimas_noticias(nombre, url):
