@@ -35,7 +35,15 @@ PORTADAS = [
 
 
 def obtener_tendencias():
-    r = requests.get(SOURCE, headers={"User-Agent": "Mozilla/5.0"}, timeout=30)
+    r = requests.get(
+       SOURCE,
+       headers={
+           "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36",
+           "Accept": "text/html,application/xhtml+xml",
+           "Accept-Language": "es-MX,es;q=0.9",
+       },
+       timeout=30,
+   )
     r.raise_for_status()
     m = re.search(
         r"Today's top X \(Twitter\) trends and hashtags in Mexico:\s*(.+?)\.\s",
