@@ -20,7 +20,7 @@ FEEDS = [
     ("Reforma", "https://www.reforma.com/rss/portada.xml"),
     ("La Jornada", "https://www.jornada.com.mx/rss/edicion.xml"),
     ("Excélsior", "https://www.excelsior.com.mx/rss"),
-    ("El Heraldo", "https://heraldodemexico.com.mx/rss/feed.html?r=4"),
+    ("El Heraldo", "https://www.informador.mx/rss/mexico.xml"),
     ("El Financiero", "https://www.elfinanciero.com.mx/arc/outboundfeeds/rss/?outputType=xml"),
 ]
 
