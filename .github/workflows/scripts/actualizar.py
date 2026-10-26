@@ -103,6 +103,9 @@ CSS = """
   .trending ol { padding-left:1.2rem; }
   .trending li { margin-bottom:.5rem; font-size:.95rem; }
   footer { max-width:960px; margin:0 auto; padding:0 1rem 2rem; color:var(--muted); font-family:system-ui,sans-serif; font-size:.8rem; }
+  .actions { display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1rem; }
+  .actions button, .actions .btn { font-family:system-ui,sans-serif; font-size:.85rem; padding:.45rem .9rem; border-radius:4px; border:1px solid var(--accent); background:var(--accent); color:#fff; cursor:pointer; text-decoration:none; }
+  .actions .btn { background:transparent; color:var(--accent); }
 """
 
 
@@ -147,6 +150,10 @@ def generar_pagina(portadas, fecha_portadas, url_portadas_fuente, es_respaldo,
   <h2>Tendencias en México</h2>
   <p class="note">Fuente: {html.escape(fuente_tendencias or 'no disponible')}</p>
   {bloque_tend}
+  <div class="actions">
+    <button type="button" onclick="location.reload()">Recargar página</button>
+    <a class="btn" href="https://trends.google.com/trending?geo=MX" target="_blank" rel="noopener">Ver tendencias en vivo</a>
+  </div>
 </section>
 
 <footer>
