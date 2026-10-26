@@ -20,16 +20,14 @@ FEEDS = [
     ("Reforma", "https://www.reforma.com/rss/portada.xml"),
     ("La Jornada", "https://www.jornada.com.mx/rss/edicion.xml"),
     ("Excélsior", "https://www.excelsior.com.mx/rss"),
+    ("El Heraldo", "https://heraldodemexico.com.mx/rss/feed.html?r=2701"),
+    ("El Financiero", "https://www.elfinanciero.com.mx/arc/outboundfeeds/rss/?outputType=xml"),
 ]
 
 # Respaldo para los medios sin feed verificado o si el feed falla.
 RESPALDO = [
     ("El Universal", "Alerta financiera en la Modalidad 40 de pensiones",
      "https://www.unotv.com/nacional/las-de-hoy-23-de-octubre-de-2026/"),
-    ("El Economista", "Existen 798 mil pensiones asociadas al plan de jubilación Modalidad 40",
-     "https://www.unotv.com/nacional/las-de-hoy-23-de-octubre-de-2026/"),
-    ("La Razón", "Sheinbaum niega nexos “perversos” con el narco",
-     "https://www.razon.com.mx/version-impresa/2026/10/23/version-impresa-23-de-octubre-2026/"),
 ]
 RESPALDO_FECHA = "23 de octubre de 2026"
 
@@ -182,7 +180,7 @@ def main():
             tarjetas.append((medio, titular, enlace, f"Portada del {RESPALDO_FECHA}"))
 
     # Mantener el orden de los medios
-    orden = ["Reforma", "El Universal", "Excélsior", "La Jornada", "El Economista", "La Razón"]
+    orden = ["Reforma", "El Universal", "Excélsior", "La Jornada", "El Heraldo", "El Financiero"]
     tarjetas.sort(key=lambda t: orden.index(t[0]) if t[0] in orden else 99)
 
     nombre_t, tendencias = obtener_tendencias()
