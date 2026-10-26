@@ -5,7 +5,7 @@ from datetime import datetime, timedelta, timezone
 
 import requests
 
-## SOURCE = "https://trends24.in/mexico/"
+SOURCE = "https://trends24.in/mexico/"
 OUT_DIR = "."
 OUT_FILE = os.path.join(OUT_DIR, "index.html")
 MX = timezone(timedelta(hours=-6))
