@@ -1,16 +1,68 @@
 import html
 import os
 import re
+import sys
 from datetime import datetime, timedelta, timezone
 
 import requests
 
-SOURCE = "https://trends24.in/mexico/"
-OUT_DIR = "."
-OUT_FILE = os.path.join(OUT_DIR, "index.html")
+OUT_FILE = "index.html"
 MX = timezone(timedelta(hours=-6))
 
-# Portadas: se actualizan a mano editando esta lista.
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                  "(KHTML, like Gecko) Chrome/120.0 Safari/537.36",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "es-MX,es;q=0.9",
+}
+
+
+def limpiar(texto):
+    texto = re.sub(r"<!\[CDATA\[|\]\]>", "", texto)
+    return html.unescape(texto).strip()
+
+
+def parse_trends24(texto):
+    m = re.search(
+        r"Today's top X \(Twitter\) trends and hashtags in Mexico:\s*(.+?)\.\s",
+        texto,
+    )
+    if not m:
+        raise RuntimeError("no encontré la lista")
+    return [t.strip() for t in html.unescape(m.group(1)).split(",") if t.strip()]
+
+
+def parse_twittertrending(texto):
+    # Formato de lista numerada: "1)Tema", "2)Tema"... (puede requerir ajuste)
+    temas = re.findall(r"\b\d\)\s*([^\n<\)]{2,60})", texto)
+    vistos = []
+    for t in temas:
+        t = limpiar(t)
+        if t and t not in vistos:
+            vistos.append(t)
+    if len(vistos) < 3:
+        raise RuntimeError("no encontré la lista")
+    return vistos
+
+
+def parse_google_rss(texto):
+    titulos = re.findall(r"<item>.*?<title>(.*?)</title>", texto, re.S)
+    temas = []
+    for t in titulos:
+        t = limpiar(t)
+        if t and t not in temas:
+            temas.append(t)
+    if len(temas) < 3:
+        raise RuntimeError("no encontré los títulos")
+    return temas
+
+
+FUENTES = [
+    ("Trends24 (X)", "https://trends24.in/mexico/", parse_trends24),
+    ("TwitterTrending (X)", "https://www.twitter-trending.com/mexico", parse_twittertrending),
+    ("Google Trends México", "https://trends.google.com/trending/rss?geo=MX", parse_google_rss),
+]
+
 PORTADAS_FECHA = "23 de octubre de 2026"
 PORTADAS = [
     ("Reforma", "Agasaja proveedor a directores del INE",
@@ -34,31 +86,7 @@ PORTADAS = [
 ]
 
 
-def obtener_tendencias():
-    r = requests.get(
-       SOURCE,
-      headers={
-           "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36",
-           "Accept": "text/html,application/xhtml+xml",
-           "Accept-Language": "es-MX,es;q=0.9",
-       },
-       timeout=30,
-   )
-    r.raise_for_status()
-    m = re.search(
-        r"Today's top X \(Twitter\) trends and hashtags in Mexico:\s*(.+?)\.\s",
-        r.text,
-    )
-    if not m:
-        raise RuntimeError("No se encontró la lista de tendencias en Trends24")
-    texto = html.unescape(m.group(1))
-    tendencias = [t.strip() for t in texto.split(",") if t.strip()]
-    if len(tendencias) < 3:
-        raise RuntimeError("La lista de tendencias llegó incompleta")
-    return tendencias[:5]
- 
-
-def generar_pagina(tendencias, ahora):
+def generar_pagina(fuente, tendencias, ahora):
     portadas_html = "\n".join(
         f"""  <article>
     <h2>{html.escape(medio)}</h2>
@@ -95,7 +123,6 @@ def generar_pagina(tendencias, ahora):
   .trending .note {{ font-family:system-ui,sans-serif; font-size:.8rem; color:var(--muted); margin:0 0 .8rem; }}
   .trending ol {{ padding-left:1.2rem; }}
   .trending li {{ margin-bottom:.5rem; font-size:.95rem; }}
-  .trending .btn {{ display:inline-block; font-family:system-ui,sans-serif; font-size:.85rem; padding:.45rem .9rem; border:1px solid var(--accent); border-radius:4px; color:var(--accent); text-decoration:none; margin-top:.4rem; }}
   footer {{ max-width:960px; margin:0 auto; padding:0 1rem 2rem; color:var(--muted); font-family:system-ui,sans-serif; font-size:.8rem; }}
 </style>
 </head>
@@ -110,16 +137,15 @@ def generar_pagina(tendencias, ahora):
 </main>
 
 <section class="trending">
-  <h2>Trending en X México</h2>
-  <p class="note">Según Trends24. Se actualiza cada hora.</p>
+  <h2>Tendencias en México</h2>
+  <p class="note">Fuente: {html.escape(fuente)}</p>
   <ol>
 {tendencias_html}
   </ol>
-  <a class="btn" href="{SOURCE}" target="_blank" rel="noopener">Ver tendencias en vivo</a>
 </section>
 
 <footer>
-  Portadas del {PORTADAS_FECHA}; se actualizan a mano. Las tendencias se actualizan solas.
+  Portadas del {PORTADAS_FECHA}; se actualizan a mano.
 </footer>
 </body>
 </html>
@@ -128,11 +154,21 @@ def generar_pagina(tendencias, ahora):
 
 def main():
     ahora = datetime.now(MX)
-     tendencias = obtener_tendencias()
-    os.makedirs(OUT_DIR, exist_ok=True)
+    for nombre, url, parser in FUENTES:
+        try:
+            r = requests.get(url, headers=HEADERS, timeout=30)
+            r.raise_for_status()
+            tendencias = parser(r.text)[:5]
+            break
+        except Exception as e:
+            print(f"Falló {nombre}: {e}")
+    else:
+        print("Ninguna fuente respondió. index.html no se modificó.")
+        return
+
     with open(OUT_FILE, "w", encoding="utf-8") as f:
-         f.write(generar_pagina(tendencias, ahora))
-    print("Tendencias:", ", ".join(tendencias))
+        f.write(generar_pagina(nombre, tendencias, ahora))
+    print(f"Listo con {nombre}: {', '.join(tendencias)}")
 
 
 if __name__ == "__main__":
