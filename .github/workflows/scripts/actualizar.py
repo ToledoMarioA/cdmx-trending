@@ -34,29 +34,29 @@ PORTADAS = [
 ]
 
 
-## def obtener_tendencias():
-##     r = requests.get(
-##        SOURCE,
-##       headers={
-##            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36",
-##            "Accept": "text/html,application/xhtml+xml",
-##            "Accept-Language": "es-MX,es;q=0.9",
-##        },
-##        timeout=30,
-##    )
-##     r.raise_for_status()
-##     m = re.search(
-##         r"Today's top X \(Twitter\) trends and hashtags in Mexico:\s*(.+?)\.\s",
-##         r.text,
-##     )
-##     if not m:
-##         raise RuntimeError("No se encontró la lista de tendencias en Trends24")
-##     texto = html.unescape(m.group(1))
-##     tendencias = [t.strip() for t in texto.split(",") if t.strip()]
-##     if len(tendencias) < 3:
-##         raise RuntimeError("La lista de tendencias llegó incompleta")
-##     return tendencias[:5]
-## 
+def obtener_tendencias():
+    r = requests.get(
+       SOURCE,
+      headers={
+           "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36",
+           "Accept": "text/html,application/xhtml+xml",
+           "Accept-Language": "es-MX,es;q=0.9",
+       },
+       timeout=30,
+   )
+    r.raise_for_status()
+    m = re.search(
+        r"Today's top X \(Twitter\) trends and hashtags in Mexico:\s*(.+?)\.\s",
+        r.text,
+    )
+    if not m:
+        raise RuntimeError("No se encontró la lista de tendencias en Trends24")
+    texto = html.unescape(m.group(1))
+    tendencias = [t.strip() for t in texto.split(",") if t.strip()]
+    if len(tendencias) < 3:
+        raise RuntimeError("La lista de tendencias llegó incompleta")
+    return tendencias[:5]
+ 
 
 def generar_pagina(tendencias, ahora):
     portadas_html = "\n".join(
@@ -128,11 +128,11 @@ def generar_pagina(tendencias, ahora):
 
 def main():
     ahora = datetime.now(MX)
-##     tendencias = obtener_tendencias()
+     tendencias = obtener_tendencias()
     os.makedirs(OUT_DIR, exist_ok=True)
-##    with open(OUT_FILE, "w", encoding="utf-8") as f:
-##         f.write(generar_pagina(tendencias, ahora))
-##    print("Tendencias:", ", ".join(tendencias))
+    with open(OUT_FILE, "w", encoding="utf-8") as f:
+         f.write(generar_pagina(tendencias, ahora))
+    print("Tendencias:", ", ".join(tendencias))
 
 
 if __name__ == "__main__":
