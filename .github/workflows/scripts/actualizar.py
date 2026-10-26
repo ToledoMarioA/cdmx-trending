@@ -152,7 +152,9 @@ def generar_pagina(portadas, fecha_portadas, url_portadas_fuente, es_respaldo,
   {bloque_tend}
   <div class="actions">
     <button type="button" onclick="location.reload()">Recargar página</button>
-    <a class="btn" href="https://trends.google.com/trending?geo=MX" target="_blank" rel="noopener">Ver tendencias en vivo</a>
+#    <a class="btn" href="https://trends.google.com/trending?geo=MX" target="_blank" rel="noopener">Ver tendencias en vivo</a>
+     <a class="btn" href="https://trends.google.com/trending?geo=MX" target="_blank" rel="noopener">Google Trends</a>
+     <a class="btn" href="https://trends24.in/mexico/" target="_blank" rel="noopener">Trends24 (X)</a>
   </div>
 </section>
 
