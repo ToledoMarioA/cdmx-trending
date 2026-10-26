@@ -5,120 +5,30 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Encabezados de periódicos de la CDMX</title>
 <style>
-  :root {
-    --bg: #f6f4ef;
-    --card: #ffffff;
-    --ink: #1d1d1b;
-    --muted: #6b6b66;
-    --line: #e2dfd7;
-    --accent: #8a1c1c;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #161614; --card: #22221f; --ink: #f0efe9; --muted: #a3a29b; --line: #3a3a36; --accent: #e07a7a;
-    }
-  }
-  :root[data-theme="dark"] {
-    --bg: #161614; --card: #22221f; --ink: #f0efe9; --muted: #a3a29b; --line: #3a3a36; --accent: #e07a7a;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--ink);
-    font-family: Georgia, "Times New Roman", serif;
-    line-height: 1.5;
-  }
-  header {
-    padding: 2rem 1rem 1rem;
-    text-align: center;
-    border-bottom: 3px double var(--ink);
-    max-width: 960px;
-    margin: 0 auto;
-  }
-  header h1 { margin: 0; font-size: clamp(1.6rem, 4vw, 2.4rem); }
-  header p { margin: .4rem 0 0; color: var(--muted); font-family: system-ui, sans-serif; font-size: .95rem; }
-  main {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 1.5rem 1rem 1rem;
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  }
-  article {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-top: 4px solid var(--accent);
-    padding: 1rem 1.1rem 1.1rem;
-    border-radius: 4px;
-  }
-  article h2 {
-    font-family: system-ui, sans-serif;
-    font-size: .8rem;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin: 0 0 .5rem;
-  }
-  article h3 { font-size: 1.1rem; margin: 0 0 .4rem; line-height: 1.3; }
-  article p { margin: 0 0 .6rem; font-size: .95rem; color: var(--muted); }
-  article a {
-    font-family: system-ui, sans-serif;
-    font-size: .85rem;
-    color: var(--accent);
-    text-decoration: none;
-  }
-  article a:hover { text-decoration: underline; }
-  .trending {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 1rem 1rem 2rem;
-    border-top: 3px double var(--ink);
-  }
-  .trending h2 {
-    font-family: system-ui, sans-serif;
-    font-size: .8rem;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin: 1rem 0 .4rem;
-  }
-  .trending .note { font-family: system-ui, sans-serif; font-size: .8rem; color: var(--muted); margin: 0 0 .8rem; }
-  .trending ol { padding-left: 1.2rem; margin: 0 0 .8rem; }
-  .trending li { margin-bottom: .5rem; font-size: .95rem; }
-  .trending .sources { font-family: system-ui, sans-serif; font-size: .8rem; color: var(--muted); }
-  .trending .sources a { color: var(--accent); }
-  .trending .actions { display: flex; flex-wrap: wrap; gap: .6rem; margin: .4rem 0 1rem; }
-  .trending .actions button,
-  .trending .actions .btn {
-    font-family: system-ui, sans-serif;
-    font-size: .85rem;
-    padding: .45rem .9rem;
-    border-radius: 4px;
-    border: 1px solid var(--accent);
-    background: var(--accent);
-    color: #fff;
-    cursor: pointer;
-    text-decoration: none;
-  }
-  .trending .actions .btn { background: transparent; color: var(--accent); }
-  .trending .actions button:hover,
-  .trending .actions .btn:hover { opacity: .85; }
-  footer {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 0 1rem 2rem;
-    color: var(--muted);
-    font-family: system-ui, sans-serif;
-    font-size: .8rem;
-  }
+  :root { --bg:#f6f4ef; --card:#fff; --ink:#1d1d1b; --muted:#6b6b66; --line:#e2dfd7; --accent:#8a1c1c; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:Georgia,serif; line-height:1.5; }
+  header { padding:2rem 1rem 1rem; text-align:center; border-bottom:3px double var(--ink); max-width:960px; margin:0 auto; }
+  header h1 { margin:0; font-size:clamp(1.6rem,4vw,2.4rem); }
+  header p { margin:.4rem 0 0; color:var(--muted); font-family:system-ui,sans-serif; font-size:.95rem; }
+  main { max-width:960px; margin:0 auto; padding:1.5rem 1rem 1rem; display:grid; gap:1rem; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); }
+  article { background:var(--card); border:1px solid var(--line); border-top:4px solid var(--accent); padding:1rem 1.1rem; border-radius:4px; }
+  article h2 { font-family:system-ui,sans-serif; font-size:.8rem; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); margin:0 0 .5rem; }
+  article h3 { font-size:1.1rem; margin:0 0 .4rem; line-height:1.3; }
+  article p { margin:0 0 .6rem; font-size:.95rem; color:var(--muted); }
+  article a { font-family:system-ui,sans-serif; font-size:.85rem; color:var(--accent); text-decoration:none; }
+  .trending { max-width:960px; margin:0 auto; padding:1rem 1rem 2rem; border-top:3px double var(--ink); }
+  .trending h2 { font-family:system-ui,sans-serif; font-size:.8rem; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); margin:1rem 0 .4rem; }
+  .trending .note { font-family:system-ui,sans-serif; font-size:.8rem; color:var(--muted); margin:0 0 .8rem; }
+  .trending ol { padding-left:1.2rem; }
+  .trending li { margin-bottom:.5rem; font-size:.95rem; }
+  footer { max-width:960px; margin:0 auto; padding:0 1rem 2rem; color:var(--muted); font-family:system-ui,sans-serif; font-size:.8rem; }
 </style>
 </head>
 <body>
 <header>
   <h1>Encabezados de los periódicos de la CDMX</h1>
-  <p>Lunes 26 de octubre de 2026 · Portadas más recientes encontradas: 23 de octubre</p>
+  <p>Tendencias actualizadas: 26/10/2026 12:09 (hora de CDMX)</p>
 </header>
 
 <main>
@@ -126,66 +36,54 @@
     <h2>Reforma</h2>
     <h3>Agasaja proveedor a directores del INE</h3>
     <p>Funcionarios acuden a reuniones con Hernández Casillas; alertan consejeros sobre contratos millonarios.</p>
-    <a href="https://www.unotv.com/nacional/las-de-hoy-23-de-octubre-de-2026/">Fuente: UnoTV</a>
+    <a href="https://www.unotv.com/nacional/las-de-hoy-23-de-octubre-de-2026/">Fuente</a>
   </article>
-
   <article>
     <h2>El Universal</h2>
     <h3>Alerta financiera en la Modalidad 40 de pensiones</h3>
     <p>La presidenta señala pérdidas de miles de millones de pesos desde 2023; la comisión de Seguridad Social evalúa citar a Zoé Robledo.</p>
-    <a href="https://www.unotv.com/nacional/las-de-hoy-23-de-octubre-de-2026/">Fuente: UnoTV</a>
+    <a href="https://www.unotv.com/nacional/las-de-hoy-23-de-octubre-de-2026/">Fuente</a>
   </article>
-
   <article>
     <h2>Excélsior</h2>
     <h3>A debate, los cambios a la Modalidad 40</h3>
     <p>Sheinbaum justifica regular la norma tras detectar fraudes; Ricardo Monreal plantea legislar para darle permanencia jurídica.</p>
-    <a href="https://www.unotv.com/nacional/las-de-hoy-23-de-octubre-de-2026/">Fuente: UnoTV</a>
+    <a href="https://www.unotv.com/nacional/las-de-hoy-23-de-octubre-de-2026/">Fuente</a>
   </article>
-
   <article>
     <h2>La Jornada</h2>
     <h3>Sheinbaum: ajustes a la Modalidad 40 del IMSS por uso fraudulento</h3>
     <p>La modalidad habría generado 27 mil millones de pesos al Instituto, pero no compensa la carga financiera.</p>
-    <a href="https://media.jornada.com.mx/2026/10/23/">Fuente: La Jornada</a>
+    <a href="https://media.jornada.com.mx/2026/10/23/">Fuente</a>
   </article>
-
   <article>
     <h2>El Economista</h2>
     <h3>Existen 798 mil pensiones asociadas al plan de jubilación Modalidad 40</h3>
     <p>Cifra que ubica el tema de las pensiones en el centro de la agenda económica del día.</p>
-    <a href="https://www.unotv.com/nacional/las-de-hoy-23-de-octubre-de-2026/">Fuente: UnoTV</a>
+    <a href="https://www.unotv.com/nacional/las-de-hoy-23-de-octubre-de-2026/">Fuente</a>
   </article>
-
   <article>
     <h2>La Razón</h2>
     <h3>Sheinbaum niega nexos “perversos” con el narco</h3>
     <p>Entre los otros titulares de la edición: la CIA habría frenado la captura de El Chapo tres meses después de su fuga.</p>
-    <a href="https://www.razon.com.mx/version-impresa/2026/10/23/version-impresa-23-de-octubre-2026/">Fuente: La Razón</a>
+    <a href="https://www.razon.com.mx/version-impresa/2026/10/23/version-impresa-23-de-octubre-2026/">Fuente</a>
   </article>
 </main>
 
 <section class="trending">
-  <h2>Trending en X México</h2>
-  <p class="note">Temas más mencionados en X en México, según el monitor Trends24. La captura más reciente que encontré es del 24 de octubre de 2026, alrededor de las 11:45 (hora de CDMX). Es posible que las tendencias hayan cambiado desde entonces.</p>
+  <h2>Tendencias en México</h2>
+  <p class="note">Fuente: Google Trends México</p>
   <ol>
-    <li><strong>#LaGranjaTraicion</strong></li>
-    <li><strong>Taddei</strong></li>
-    <li><strong>Maru Campos</strong></li>
-    <li><strong>Ariadna Montiel</strong></li>
-    <li><strong>Azalia</strong></li>
+    <li><strong>galatasaray - fenerbahçe</strong></li>
+    <li><strong>julian quiñones</strong></li>
+    <li><strong>salario</strong></li>
+    <li><strong>holland taylor</strong></li>
+    <li><strong>galatasaray vs fenerbahçe</strong></li>
   </ol>
-  <div class="actions">
-    <button type="button" onclick="location.reload()">Recargar página</button>
-    <a class="btn" href="https://trends24.in/mexico/" target="_blank" rel="noopener">Ver tendencias en vivo</a>
-  </div>
-  <div class="sources">
-    Fuente: <a href="https://trends24.in/mexico/">Trends24 – X Trends México</a>
-  </div>
 </section>
 
 <footer>
-  Encabezados tomados de las portadas publicadas el 23 de octubre de 2026; no encontré las de hoy 26. Los titulares se resumen y pueden no coincidir textualmente con la portada impresa; consulta el enlace de cada fuente para la versión completa.
+  Portadas del 23 de octubre de 2026; se actualizan a mano.
 </footer>
 </body>
 </html>
