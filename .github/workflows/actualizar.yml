@@ -1,8 +1,6 @@
 name: Actualizar tendencias
 
 on:
-  schedule:
-    - cron: '0 * * * *'   # cada hora
   workflow_dispatch:
 
 permissions:
@@ -23,10 +21,11 @@ jobs:
 
       - name: Generar la página
         run: python .github/workflows/scripts/actualizar.py
+        continue-on-error: true
 
-      - name: Guardar cambios en el repositorio
+      - name: Guardar cambios
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add index.html
+          git add -f index.html || exit 0
           git diff --cached --quiet || (git commit -m "Actualizar tendencias" && git push)
