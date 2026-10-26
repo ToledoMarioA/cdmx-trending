@@ -6,8 +6,8 @@ from datetime import datetime, timedelta, timezone
 import requests
 
 SOURCE = "https://trends24.in/mexico/"
-OUT_DIR = "public"
-OUT_FILE = os.path.join(OUT_DIR, "encabezados_cdmx.html")
+OUT_DIR = "."
+OUT_FILE = os.path.join(OUT_DIR, "index.html")
 MX = timezone(timedelta(hours=-6))
 
 # Portadas: se actualizan a mano editando esta lista.
