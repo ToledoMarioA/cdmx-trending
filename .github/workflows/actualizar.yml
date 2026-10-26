@@ -22,7 +22,7 @@ jobs:
         run: pip install requests
 
       - name: Generar la página
-        run: python scripts/actualizar.py
+        run: python .github/workflows/scripts/actualizar.py
 
       - name: Subir a GoDaddy por FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
