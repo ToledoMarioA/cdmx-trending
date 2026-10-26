@@ -22,12 +22,15 @@
   .trending ol { padding-left:1.2rem; }
   .trending li { margin-bottom:.5rem; font-size:.95rem; }
   footer { max-width:960px; margin:0 auto; padding:0 1rem 2rem; color:var(--muted); font-family:system-ui,sans-serif; font-size:.8rem; }
+  .actions { display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1rem; }
+  .actions button, .actions .btn { font-family:system-ui,sans-serif; font-size:.85rem; padding:.45rem .9rem; border-radius:4px; border:1px solid var(--accent); background:var(--accent); color:#fff; cursor:pointer; text-decoration:none; }
+  .actions .btn { background:transparent; color:var(--accent); }
 </style>
 </head>
 <body>
 <header>
   <h1>Encabezados de los periódicos de la CDMX</h1>
-  <p>Actualizado: 26/10/2026 12:22 (hora de CDMX) · Portadas del 23 de octubre de 2026</p>
+  <p>Actualizado: 26/10/2026 12:27 (hora de CDMX) · Portadas del 23 de octubre de 2026</p>
 </header>
 
 <main>
@@ -73,6 +76,10 @@
     <li><strong>la luna llena</strong></li>
     <li><strong>galatasaray - fenerbahçe</strong></li>
   </ol>
+  <div class="actions">
+    <button type="button" onclick="location.reload()">Recargar página</button>
+    <a class="btn" href="https://trends.google.com/trending?geo=MX" target="_blank" rel="noopener">Ver tendencias en vivo</a>
+  </div>
 </section>
 
 <footer>
