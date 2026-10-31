@@ -111,25 +111,27 @@ def generar_pagina(tarjetas, tendencias, fuente_t, ahora):
 <meta http-equiv="Expires" content="0">
 <title>Encabezados de periódicos de la CDMX</title>
 <style>
-  :root {{ --bg:#f6f4ef; --card:#fff; --ink:#1d1d1b; --muted:#6b6b66; --line:#e2dfd7; --accent:#8a1c1c; }}
+  :root {{ --bg:#000000; --card:#050d05; --ink:#39ff14; --muted:#2bb010; --line:#14661a; --accent:#39ff14; --glow:rgba(57,255,20,.35); }}
   * {{ box-sizing:border-box; }}
   body {{ margin:0; background:var(--bg); color:var(--ink); font-family:Georgia,serif; line-height:1.5; }}
-  header {{ padding:2rem 1rem 1rem; text-align:center; border-bottom:3px double var(--ink); max-width:960px; margin:0 auto; }}
+  header {{ padding:2rem 1rem 1rem; text-align:center; border-bottom:3px double var(--accent); max-width:960px; margin:0 auto; text-shadow:0 0 10px var(--glow); }}
   header h1 {{ margin:0; font-size:clamp(1.6rem,4vw,2.4rem); }}
   header p {{ margin:.4rem 0 0; color:var(--muted); font-family:system-ui,sans-serif; font-size:.95rem; }}
   main {{ max-width:960px; margin:0 auto; padding:1.5rem 1rem 1rem; display:grid; gap:1rem; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); }}
-  article {{ background:var(--card); border:1px solid var(--line); border-top:4px solid var(--accent); padding:1rem 1.1rem; border-radius:4px; }}
+  article {{ background:var(--card); border:1px solid var(--line); border-top:4px solid var(--accent); padding:1rem 1.1rem; border-radius:4px; box-shadow:0 0 12px var(--glow); }}
   article h2 {{ font-family:system-ui,sans-serif; font-size:.8rem; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); margin:0 0 .5rem; }}
-  article h3 {{ font-size:1.1rem; margin:0 0 .6rem; line-height:1.3; }}
+  article h3 {{ font-size:1.1rem; margin:0 0 .6rem; line-height:1.3; color:var(--ink); }}
   article a {{ font-family:system-ui,sans-serif; font-size:.85rem; color:var(--accent); text-decoration:none; }}
-  .trending {{ max-width:960px; margin:0 auto; padding:1rem 1rem 2rem; border-top:3px double var(--ink); }}
+  article a:hover {{ text-decoration:underline; }}
+  .trending {{ max-width:960px; margin:0 auto; padding:1rem 1rem 2rem; border-top:3px double var(--accent); }}
   .trending h2 {{ font-family:system-ui,sans-serif; font-size:.8rem; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); margin:1rem 0 .4rem; }}
   .trending .note {{ font-family:system-ui,sans-serif; font-size:.8rem; color:var(--muted); margin:0 0 .8rem; }}
   .trending ol {{ padding-left:1.2rem; }}
   .trending li {{ margin-bottom:.5rem; font-size:.95rem; }}
   .actions {{ display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1rem; }}
-  .actions button, .actions .btn {{ font-family:system-ui,sans-serif; font-size:.85rem; padding:.45rem .9rem; border-radius:4px; border:1px solid var(--accent); background:var(--accent); color:#fff; cursor:pointer; text-decoration:none; }}
+  .actions button, .actions .btn {{ font-family:system-ui,sans-serif; font-size:.85rem; padding:.45rem .9rem; border-radius:4px; border:1px solid var(--accent); background:var(--accent); color:#000; cursor:pointer; text-decoration:none; box-shadow:0 0 8px var(--glow); }}
   .actions .btn {{ background:transparent; color:var(--accent); }}
+  .actions button:hover, .actions .btn:hover {{ opacity:.85; }}
   footer {{ max-width:960px; margin:0 auto; padding:0 1rem 2rem; color:var(--muted); font-family:system-ui,sans-serif; font-size:.8rem; }}
 </style>
 </head>
